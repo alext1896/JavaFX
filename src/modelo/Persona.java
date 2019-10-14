@@ -2,12 +2,15 @@ package modelo;
 
 import java.time.LocalDate;
 
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import util.AdaptadorFecha;
 
 /**
  * Model class for a Person.
@@ -16,12 +19,12 @@ import javafx.beans.property.StringProperty;
  */
 public class Persona {
 
-    private final StringProperty firstName;
-    private final StringProperty lastName;
-    private final StringProperty street;
-    private final IntegerProperty postalCode;
-    private final StringProperty city;
-    private final ObjectProperty<LocalDate> birthday;
+    private final StringProperty nombre;
+    private final StringProperty apellido;
+    private final StringProperty calle;
+    private final IntegerProperty codigoPostal;
+    private final StringProperty ciudad;
+    private final ObjectProperty<LocalDate> nacimiento;
 
     /**
      * Default constructor.
@@ -36,86 +39,87 @@ public class Persona {
      * @param firstName
      * @param lastName
      */
-    public Persona(String firstName, String lastName) {
-        this.firstName = new SimpleStringProperty(firstName);
-        this.lastName = new SimpleStringProperty(lastName);
+    public Persona(String nombre, String apellido) {
+        this.nombre = new SimpleStringProperty(nombre);
+        this.apellido = new SimpleStringProperty(apellido);
         
         // Some initial dummy data, just for convenient testing.
-        this.street = new SimpleStringProperty("Alguna calle");
-        this.postalCode = new SimpleIntegerProperty(1234);
-        this.city = new SimpleStringProperty("Alguna ciudad");
-        this.birthday = new SimpleObjectProperty<LocalDate>(LocalDate.of(1996, 12, 18));
+        this.calle = new SimpleStringProperty("Alguna calle");
+        this.codigoPostal = new SimpleIntegerProperty(1234);
+        this.ciudad = new SimpleStringProperty("Alguna ciudad");
+        this.nacimiento = new SimpleObjectProperty<LocalDate>(LocalDate.of(1996, 12, 18));
     }
     
     public String getFirstName() {
-        return firstName.get();
+        return nombre.get();
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName.set(firstName);
+    public void setFirstName(String nombre) {
+        this.nombre.set(nombre);
     }
     
     public StringProperty firstNameProperty() {
-        return firstName;
+        return nombre;
     }
 
     public String getLastName() {
-        return lastName.get();
+        return apellido.get();
     }
 
-    public void setLastName(String lastName) {
-        this.lastName.set(lastName);
+    public void setLastName(String apellido) {
+        this.apellido.set(apellido);
     }
     
     public StringProperty lastNameProperty() {
-        return lastName;
+        return apellido;
     }
 
     public String getStreet() {
-        return street.get();
+        return calle.get();
     }
 
-    public void setStreet(String street) {
-        this.street.set(street);
+    public void setStreet(String calle) {
+        this.calle.set(calle);
     }
     
     public StringProperty streetProperty() {
-        return street;
+        return calle;
     }
 
     public int getPostalCode() {
-        return postalCode.get();
+        return codigoPostal.get();
     }
 
-    public void setPostalCode(int postalCode) {
-        this.postalCode.set(postalCode);
+    public void setPostalCode(int codigoPostal) {
+        this.codigoPostal.set(codigoPostal);
     }
     
     public IntegerProperty postalCodeProperty() {
-        return postalCode;
+        return codigoPostal;
     }
 
     public String getCity() {
-        return city.get();
+        return ciudad.get();
     }
 
-    public void setCity(String city) {
-        this.city.set(city);
+    public void setCity(String calle) {
+        this.ciudad.set(calle);
     }
     
     public StringProperty cityProperty() {
-        return city;
+        return ciudad;
     }
 
-    public LocalDate getBirthday() {
-        return birthday.get();
+    @XmlJavaTypeAdapter(AdaptadorFecha.class)
+    public LocalDate getNacimiento() {
+        return nacimiento.get();
     }
 
-    public void setBirthday(LocalDate birthday) {
-        this.birthday.set(birthday);
+    public void setBirthday(LocalDate nacimiento) {
+        this.nacimiento.set(nacimiento);
     }
     
     public ObjectProperty<LocalDate> birthdayProperty() {
-        return birthday;
+        return nacimiento;
     }
 }

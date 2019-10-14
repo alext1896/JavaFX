@@ -141,7 +141,7 @@ public class ControladorPersona {
             postalCodeLabel.setText(Integer.toString(person.getPostalCode()));
             cityLabel.setText(person.getCity());
 
-            birthdayLabel.setText(UtilesData.format(person.getBirthday())); 
+            birthdayLabel.setText(UtilesData.format(person.getNacimiento())); 
         } else {
             // Person is null, remove all the text.
             firstNameLabel.setText("");

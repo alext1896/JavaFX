@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<personas>
+    <persona>
+        <city>Madrid</city>
+        <firstName>Alejandro</firstName>
+        <lastName>Guapache</lastName>
+        <nacimiento>1996-12-18</nacimiento>
+        <postalCode>28031</postalCode>
+        <street>Peña Cervera</street>
+    </persona>
+    <persona>
+        <city>Madrid</city>
+        <firstName>Felipe</firstName>
+        <lastName>Guapache</lastName>
+        <nacimiento>1996-12-18</nacimiento>
+        <postalCode>28031</postalCode>
+        <street>Peña Cervera</street>
+    </persona>
+</personas>

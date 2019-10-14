@@ -62,7 +62,7 @@ public class ControladorEditar {
 	        streetField.setText(person.getStreet());
 	        postalCodeField.setText(Integer.toString(person.getPostalCode()));
 	        cityField.setText(person.getCity());
-	        birthdayField.setText(UtilesData.format(person.getBirthday()));
+	        birthdayField.setText(UtilesData.format(person.getNacimiento()));
 	        birthdayField.setPromptText("dd.mm.yyyy");
 	    }
 
