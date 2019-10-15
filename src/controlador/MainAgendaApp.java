@@ -22,6 +22,7 @@ import javafx.stage.Stage;
 import modelo.ListaPersonaXml;
 import modelo.Persona;
 import vista.ControladorEditar;
+import vista.ControladorEstadistica;
 import vista.ControladorPersona;
 import vista.ControladorRaiz;
 
@@ -265,6 +266,33 @@ public class MainAgendaApp extends Application {
 	            alert.setContentText("No se pudo guardar los datos en el fichero:\n" + file.getPath());
 
 	            alert.showAndWait();
+	        }
+	    }
+	    
+	    /**
+	     * Opens a dialog to show birthday statistics.
+	     */
+	    public void verEstadisticaCumpleaños() {
+	        try {
+	            // Load the fxml file and create a new stage for the popup.
+	            FXMLLoader loader = new FXMLLoader();
+	            loader.setLocation(MainAgendaApp.class.getResource("../vista/Estadistica.fxml"));
+	            AnchorPane page = (AnchorPane) loader.load();
+	            Stage dialogStage = new Stage();
+	            dialogStage.setTitle("Estadistica de nacimiento");
+	            dialogStage.initModality(Modality.WINDOW_MODAL);
+	            dialogStage.initOwner(primaryStage);
+	            Scene scene = new Scene(page);
+	            dialogStage.setScene(scene);
+
+	            // Set the persons into the controller.
+	            ControladorEstadistica controller = loader.getController();
+	            controller.setPersonData(personData);
+
+	            dialogStage.show();
+
+	        } catch (IOException e) {
+	            e.printStackTrace();
 	        }
 	    }
 

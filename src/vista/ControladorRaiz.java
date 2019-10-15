@@ -99,6 +99,14 @@ public class ControladorRaiz {
 
         alert.showAndWait();
     }
+    
+    /**
+     * Opens the birthday statistics.
+     */
+    @FXML
+    private void handleShowBirthdayStatistics() {
+      mainApp.verEstadisticaCumpleaños();
+    }
 
     /**
      * Closes the application.

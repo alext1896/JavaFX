@@ -11,6 +11,7 @@
         <menus>
           <Menu mnemonicParsing="false" text="Archivo">
             <items>
+                  <MenuItem mnemonicParsing="false" onAction="#handleNew" text="Nuevo" />
                   <MenuItem mnemonicParsing="false" onAction="#handleOpen" text="Cargar Agenda" />
                   <MenuItem mnemonicParsing="false" onAction="#handleSave" text="Guardar Agenda" />
                   <MenuItem mnemonicParsing="false" onAction="#handleSaveAs" text="Guardar Como..." />
@@ -22,6 +23,11 @@
               <MenuItem mnemonicParsing="false" text="Delete" />
             </items>
           </Menu>
+            <Menu mnemonicParsing="false" text="Estadisticas">
+              <items>
+                <MenuItem mnemonicParsing="false" onAction="#handleShowBirthdayStatistics" text="Estadistica de Cumpleaños" />
+              </items>
+            </Menu>
           <Menu mnemonicParsing="false" text="Ayuda">
             <items>
               <MenuItem mnemonicParsing="false" text="About" />
