@@ -40,16 +40,7 @@ public class MainAgendaApp extends Application {
 	     * Constructor
 	     */
 	    public MainAgendaApp() {
-	        // Add some sample data
-	        personData.add(new Persona("Hans", "Muster"));
-	        personData.add(new Persona("Ruth", "Mueller"));
-	        personData.add(new Persona("Heinz", "Kurz"));
-	        personData.add(new Persona("Cornelia", "Meier"));
-	        personData.add(new Persona("Werner", "Meyer"));
-	        personData.add(new Persona("Lydia", "Kunz"));
-	        personData.add(new Persona("Anna", "Best"));
-	        personData.add(new Persona("Stefan", "Meier"));
-	        personData.add(new Persona("Martin", "Mueller"));
+	    
 	    }
 	  
 	    /**

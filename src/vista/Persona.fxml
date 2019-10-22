@@ -35,23 +35,26 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <Label text="Nombre" />
-                        <Label text="Apellido" GridPane.rowIndex="1" />
-                        <Label text="Calle" GridPane.rowIndex="2" />
-                        <Label text="Ciudad" GridPane.rowIndex="3" />
-                        <Label text="Nacimiento" GridPane.rowIndex="5" />
-                        <Label text="Codigo Postal" GridPane.rowIndex="4" />
-                        <Label fx:id="firstNameLabel" text="Label" GridPane.columnIndex="1" />
-                        <Label fx:id="lastNameLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <Label fx:id="streetLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <Label fx:id="cityLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                        <Label fx:id="postalCodeLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                        <Label fx:id="birthdayLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                        <Label text="Nombre" GridPane.rowIndex="1" />
+                        <Label text="Apellido" GridPane.rowIndex="2" />
+                        <Label text="Calle" GridPane.rowIndex="3" />
+                        <Label text="Ciudad" GridPane.rowIndex="4" />
+                        <Label text="Nacimiento" GridPane.rowIndex="6" />
+                        <Label text="Codigo Postal" GridPane.rowIndex="5" />
+                        <Label fx:id="firstNameLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Label fx:id="lastNameLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <Label fx:id="streetLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <Label fx:id="cityLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <Label fx:id="postalCodeLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                        <Label fx:id="birthdayLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                        <Label text="Id" />
+                        <Label text="Label" GridPane.columnIndex="1" />
                      </children>
                   </GridPane>
                   <HBox AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="5.0">
