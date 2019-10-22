@@ -15,6 +15,7 @@ import modelo.Persona;
 
 
 /**
+ * 
  * The controller for the birthday statistics view.
  * 
  * @author Marco Jakob

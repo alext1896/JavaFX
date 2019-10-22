@@ -11,7 +11,7 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import util.AdaptadorFecha;
-
+ 
 /**
  * Model class for a Person.
  *

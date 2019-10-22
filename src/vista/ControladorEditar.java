@@ -7,7 +7,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import modelo.Persona;
-
+ 
 /**
  * Dialog to edit details of a person.
  * 
