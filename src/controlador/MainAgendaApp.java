@@ -2,6 +2,13 @@ package controlador;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.prefs.Preferences;
 
 import javax.xml.bind.JAXBContext;
@@ -21,12 +28,14 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import modelo.ListaPersonaXml;
 import modelo.Persona;
+import util.Conexion;
 import vista.ControladorEditar;
 import vista.ControladorEstadistica;
 import vista.ControladorPersona;
 import vista.ControladorRaiz;
 
 public class MainAgendaApp extends Application {
+    private static final String SELECT_PERSONA = "SELECT * FROM persona";
 
 	 private Stage primaryStage;
 	 private BorderPane rootLayout;
@@ -47,6 +56,7 @@ public class MainAgendaApp extends Application {
 	     * Returns the data as an observable list of Persons. 
 	     * @return
 	     */
+	    
 	    public ObservableList<Persona> getPersonData() {
 	        return personData;
 	    }
@@ -62,8 +72,7 @@ public class MainAgendaApp extends Application {
 	    }
 	    
 	    /**
-	     * Initializes the root layout and tries to load the last opened
-	     * person file.
+	     * Initializes the root layout and tries to load the last opened person file.
 	     */
 	    public void initRootLayout() {
 	        try {
@@ -80,16 +89,11 @@ public class MainAgendaApp extends Application {
 	            // Give the controller access to the main app.
 	            ControladorRaiz controller = loader.getController();
 	            controller.setMainApp(this);
+		        loadPersonDataFromBaseData();
 
 	            primaryStage.show();
 	        } catch (IOException e) {
 	            e.printStackTrace();
-	        }
-
-	        // Try to load last opened person file.
-	        File file = getPersonFilePath();
-	        if (file != null) {
-	            loadPersonDataFromFile(file);
 	        }
 	    }
 	    
@@ -205,26 +209,105 @@ public class MainAgendaApp extends Application {
 	     * 
 	     * @param file
 	     */
-	    public void loadPersonDataFromFile(File file) {
+//	    public void loadPersonDataFromFile(File file) {
+//	        try {
+//	            JAXBContext context = JAXBContext.newInstance(ListaPersonaXml.class);
+//	            Unmarshaller um = context.createUnmarshaller();
+//
+//	            // Reading XML from the file and unmarshalling.
+//	            ListaPersonaXml wrapper = (ListaPersonaXml) um.unmarshal(file);
+//
+//	            personData.clear();
+//	            personData.addAll(wrapper.getPersons());
+//
+//	            // Save the file path to the registry.
+//	            setPersonFilePath(file);
+//
+//	        } catch (Exception e) { // catches ANY exception
+//	            Alert alert = new Alert(AlertType.ERROR);
+//	            alert.setTitle("Error");
+//	            alert.setHeaderText("No se puede cargar los datos");
+//	            alert.setContentText("No se puede cargar los datos del fichero:\n" + file.getPath());
+//
+//	            alert.showAndWait();
+//	        }
+//	    }
+	    
+	    public void loadPersonDataFromBaseData() {
 	        try {
-	            JAXBContext context = JAXBContext
-	                    .newInstance(ListaPersonaXml.class);
-	            Unmarshaller um = context.createUnmarshaller();
+	        	Connection con = null;
+	    		PreparedStatement stmt = null;
+	    		ResultSet rs = null;
 
-	            // Reading XML from the file and unmarshalling.
-	            ListaPersonaXml wrapper = (ListaPersonaXml) um.unmarshal(file);
+	    			
+	    		try {
+	    			con = new Conexion().getConnection();
 
-	            personData.clear();
-	            personData.addAll(wrapper.getPersons());
+	    			stmt = con.prepareStatement (SELECT_PERSONA);
 
-	            // Save the file path to the registry.
-	            setPersonFilePath(file);
+	    			rs = stmt.executeQuery();
+	    			
+	    			int idPersona = -1;
+	    			String nombre = "";
+	    			String apellido = "";
+	    			String calle = "";
+	    			String ciudad = "";
+	    			int codPostal = -1;
+	    			personData.clear();
+	    			Persona persona = null;
+
+	    			while (rs.next()) {
+	    				idPersona = rs.getInt("idpersona");
+	    				nombre = rs.getString("nombre");
+	    				apellido = rs.getString("apellido");
+	    				calle = rs.getString("calle");
+	    				ciudad = rs.getString("ciudad");
+	    				codPostal = rs.getInt("codigoPostal");
+	    				LocalDate nacimiento = rs.getDate(7).toLocalDate();
+	    				
+	    				
+	    				
+	    				//LocalDate date = nacimiento.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+		    			 persona = new Persona(nombre, apellido);
+		    			
+		    			persona.setIdPersona(idPersona);
+		    			persona.setStreet(calle);
+		    			persona.setCity(ciudad);
+		    			persona.setPostalCode(codPostal);
+		    			persona.setBirthday(nacimiento);
+		    			
+		    			personData.add(persona);
+	    				
+	    			}
+	    			
+		            
+	    			
+	    		} catch (SQLException sqle) {
+	    			// En una aplicacion real, escribo en el log y delego
+	    			System.err.println(sqle.getMessage());
+	    		} finally {
+	    			try {
+	    				// Liberamos todos los recursos pase lo que pase
+	    				if (rs != null) {
+	    					rs.close();
+	    				}
+	    				if (stmt != null) {
+	    					stmt.close();
+	    				}
+	    				if (con != null) {
+	    					Conexion.closeConnection(con);
+	    				}
+	    			} catch (SQLException sqle) {
+	    				// En una aplicacon real, escribo en el log, no delego porque es error al liberar recursos
+	    			}
+	    		}
+
+
 
 	        } catch (Exception e) { // catches ANY exception
 	            Alert alert = new Alert(AlertType.ERROR);
 	            alert.setTitle("Error");
 	            alert.setHeaderText("No se puede cargar los datos");
-	            alert.setContentText("No se puede cargar los datos del fichero:\n" + file.getPath());
 
 	            alert.showAndWait();
 	        }

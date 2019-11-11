@@ -1,5 +1,10 @@
 package vista;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 import controlador.UtilesData;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -7,6 +12,9 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import modelo.Persona;
+
+import util.Conexion;
+
  
 /**
  * Dialog to edit details of a person.
@@ -26,8 +34,9 @@ public class ControladorEditar {
 	    private TextField cityField;
 	    @FXML
 	    private TextField birthdayField;
-
-
+	    
+	    private static final String INSERT_PERSONA = "insert into persona (nombre, apellido, calle, ciudad, codigoPostal, nacimiento) values ( ?, ?, ?, ?, ?, ?)";
+	    
 	    private Stage dialogStage;
 	    private Persona person;
 	    private boolean okClicked = false;
@@ -54,9 +63,52 @@ public class ControladorEditar {
 	     * 
 	     * @param person
 	     */
+	    
+		  public void nuevoUsuario (Persona person) {
+		    	
+				Connection con = null;
+				PreparedStatement stmt = null;
+				ResultSet rs = null;
+				
+				try {
+					con = new Conexion().getConnection();
+
+					stmt = con.prepareStatement(INSERT_PERSONA);
+
+					stmt.setString(1, person.getFirstName());
+					stmt.setString(2, person.getLastName());
+					stmt.setString(3, person.getStreet());
+					stmt.setString(4, person.getCity());
+					stmt.setLong(5, person.getPostalCode());
+					stmt.setString(6, person.getNacimiento().toString());;
+					
+					stmt.executeUpdate();
+					
+				} catch (SQLException sqle) {
+					// En una aplicacion real, escribo en el log y delego
+					System.err.println(sqle.getMessage());
+				} finally {
+					try {
+						// Liberamos todos los recursos pase lo que pase
+						if (rs != null) {
+							rs.close();
+						}
+						if (stmt != null) {
+							stmt.close();
+						}
+						if (con != null) {
+							Conexion.closeConnection(con);
+						}
+					} catch (SQLException sqle) {
+						// En una aplicacon real, escribo en el log, no delego porque es error al liberar recursos
+					}
+				}
+		    }
+	    
+	    
 	    public void setPerson(Persona person) {
 	        this.person = person;
-
+	        
 	        firstNameField.setText(person.getFirstName());
 	        lastNameField.setText(person.getLastName());
 	        streetField.setText(person.getStreet());
@@ -64,6 +116,8 @@ public class ControladorEditar {
 	        cityField.setText(person.getCity());
 	        birthdayField.setText(UtilesData.format(person.getNacimiento()));
 	        birthdayField.setPromptText("dd.mm.yyyy");
+	        
+	        
 	    }
 
 	    /**
@@ -78,18 +132,22 @@ public class ControladorEditar {
 	    /**
 	     * Called when the user clicks ok.
 	     */
-	    @FXML
+		@FXML
 	    private void handleOk() {
 	        if (isInputValid()) {
+	        	
 	            person.setFirstName(firstNameField.getText());
 	            person.setLastName(lastNameField.getText());
 	            person.setStreet(streetField.getText());
 	            person.setPostalCode(Integer.parseInt(postalCodeField.getText()));
 	            person.setCity(cityField.getText());
 	            person.setBirthday(UtilesData.parse(birthdayField.getText()));
-
+	        	
+	            nuevoUsuario (person);
+	            
 	            okClicked = true;
 	            dialogStage.close();
+
 	        }
 	    }
 

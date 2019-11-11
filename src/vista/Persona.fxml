@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
- 
+
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
@@ -54,7 +54,7 @@
                         <Label fx:id="postalCodeLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                         <Label fx:id="birthdayLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                         <Label text="Id" />
-                        <Label text="Label" GridPane.columnIndex="1" />
+                        <Label fx:id="idLabel" text="Label" GridPane.columnIndex="1" />
                      </children>
                   </GridPane>
                   <HBox AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="5.0">
