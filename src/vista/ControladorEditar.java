@@ -57,7 +57,7 @@ public class ControladorEditar {
 	    public void setDialogStage(Stage dialogStage) {
 	        this.dialogStage = dialogStage;
 	    }
-
+	    
 	    /**
 	     * Sets the person to be edited in the dialog.
 	     * 

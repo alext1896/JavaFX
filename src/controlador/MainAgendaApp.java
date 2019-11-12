@@ -7,13 +7,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.time.ZoneId;
-import java.util.Date;
 import java.util.prefs.Preferences;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
-import javax.xml.bind.Unmarshaller;
 
 import javafx.application.Application;
 import javafx.collections.FXCollections;
